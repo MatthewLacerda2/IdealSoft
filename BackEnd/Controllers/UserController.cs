@@ -1,10 +1,8 @@
 using BackEnd.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BackEnd.Data;
+using Newtonsoft.Json;
 
 namespace BackEnd.Controllers;
 [ApiController]
@@ -17,32 +15,62 @@ public class UserController : ControllerBase {
         _context = context;
     }
 
-    // GET: api/v1/users
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<User>>> GetUsers() {
-        return await _context.Users.ToListAsync();
-    }
-
     // GET: api/v1/users/1
     [HttpGet("{id}")]
-    public async Task<ActionResult<User>> GetUser(int id) {
-        var user = await _context.Users.FindAsync(id);
+    public IActionResult ReadClient(string id) {
 
-        if (user == null) {
+        var user = _context.Users.Find(id);
+        if(user==null){
             return NotFound();
         }
 
-        return user;
+        var response = JsonConvert.SerializeObject(user);
+
+        return Ok(response);
+    }
+
+    // GET: api/v1/users/
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<User>>> GetUsers(string? name, string? surname, int offset = 0, int limit = 10) {
+
+        if (limit < 1) {
+            return BadRequest("Limit must be greater than 0.");
+        }
+
+        var query = _context.Users.AsQueryable();
+
+        if (!string.IsNullOrEmpty(name)) {
+            query = query.Where(u => u.name.Contains(name));
+        }
+
+        if (!string.IsNullOrEmpty(surname)) {
+            query = query.Where(u => u.surname.Contains(surname));
+        }
+
+        var users = await query
+            .Skip(offset)
+            .Take(limit)
+            .ToListAsync();
+
+        return Ok(JsonConvert.SerializeObject(users));
     }
 
     // POST: api/v1/users
     [HttpPost]
     public async Task<ActionResult<User>> PostUser(User user) {
 
+        var existingUser = await _context.Users.FindAsync(user.Id);
+
+        if (existingUser != null) {
+            return BadRequest("Id already taken!");
+        }
+
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction("GetUser", new { id = user.Id }, user);
+        var jsonUser = JsonConvert.SerializeObject(user);
+
+        return CreatedAtAction(nameof(PostUser), jsonUser);
     }
 
     // PATCH: api/v1/users/1
@@ -52,7 +80,7 @@ public class UserController : ControllerBase {
         var existingUser = await _context.Users.FindAsync(user.Id);
 
         if (existingUser == null) {
-            return NotFound();
+            return BadRequest("User Id not found!");
         }
 
         existingUser.name = user.name;
@@ -61,7 +89,9 @@ public class UserController : ControllerBase {
 
         await _context.SaveChangesAsync();
 
-        return NoContent();
+        var response = JsonConvert.SerializeObject(existingUser);
+
+        return Ok(response);
     }
 
     // DELETE: api/v1/users/1
@@ -70,7 +100,7 @@ public class UserController : ControllerBase {
 
         var user = await _context.Users.FindAsync(id);
         if (user == null) {
-            return NotFound();
+            return BadRequest("User Id not found!");
         }
 
         _context.Users.Remove(user);
