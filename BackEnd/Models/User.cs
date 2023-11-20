@@ -1,8 +1,16 @@
-using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
+namespace BackEnd.Models;
 public class User {
-    //id
-    public string nome { get; set; } = string.Empty;
-    public string sobrenome { get; set; } = string.Empty;
-    public string telefone { get; set; } = string.Empty;
+    public int Id { get; set; }
+
+    [Required]
+    public string name { get; set; } = string.Empty;
+
+    [Required]
+    public string surname { get; set; } = string.Empty;
+
+    [Required]
+    [RegularExpression(@"^\+\d{1,3}\s?\(\d{1,4}\)\s?\d{6,8}$", ErrorMessage = "Telefone inválido. Use o formato: +xx (xxxx) xxxxxxxx")]
+    public string telephone { get; set; } = string.Empty;
 }
