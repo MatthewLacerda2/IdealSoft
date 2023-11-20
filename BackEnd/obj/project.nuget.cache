@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2mUIGPQ3EY4TgBUtgK9/sKeU1SBwH7E3G0mb4cJMQTpFYlkzeSAzIgpZNewoxfb+3ued1TBV1KkqANSB3ZcWJQ==",
+  "dgSpecHash": "0keCkBrH1HcVsAHxSKQVDZ0Lseo2JDJePMaauB+xpYhL/w9qQNhN9B4EJHwu4dEwBVPnRscLte+Px2je+0h95A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Matheus Lacerda\\source\\repos\\IdealSoft\\BackEnd\\BackEnd.csproj",
   "expectedPackageFiles": [
@@ -26,6 +26,7 @@
     "C:\\Users\\Matheus Lacerda\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Matheus Lacerda\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.5\\microsoft.visualstudio.azure.containers.tools.targets.1.19.5.nupkg.sha512",
     "C:\\Users\\Matheus Lacerda\\.nuget\\packages\\mysqlconnector\\2.2.5\\mysqlconnector.2.2.5.nupkg.sha512",
+    "C:\\Users\\Matheus Lacerda\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Matheus Lacerda\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\7.0.0\\pomelo.entityframeworkcore.mysql.7.0.0.nupkg.sha512",
     "C:\\Users\\Matheus Lacerda\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\Matheus Lacerda\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
