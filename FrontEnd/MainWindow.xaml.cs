@@ -9,15 +9,13 @@ namespace FrontEnd {
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e) {
-            // Open a window for adding a user
             var addUserWindow = new AddUserWindow();
-            addUserWindow.ShowDialog(); // Use ShowDialog to make it a modal window
+            addUserWindow.ShowDialog();
         }
 
         private void ListButton_Click(object sender, RoutedEventArgs e) {
-            // Open a window for listing users
             var userListWindow = new UserListWindow();
-            userListWindow.ShowDialog(); // Use ShowDialog to make it a modal window
+            userListWindow.ShowDialog();
         }
     }
 }

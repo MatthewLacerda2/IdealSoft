@@ -1,5 +1,6 @@
-﻿// AddUserWindow.xaml.cs
-using System.Windows;
+﻿using System.Windows;
+using BackEnd.Models;
+using BackEnd.Data;
 
 namespace FrontEnd {
     public partial class AddUserWindow : Window {
@@ -7,17 +8,36 @@ namespace FrontEnd {
             InitializeComponent();
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e) {
-            // Implement logic to save the user
-            // You'll need to call the API or perform any other necessary actions
-            // You can access the textbox values like this: NameTextBox.Text, SurnameTextBox.Text, TelephoneTextBox.Text
-            // Example: var user = new User { Name = NameTextBox.Text, Surname = SurnameTextBox.Text, Telephone = TelephoneTextBox.Text };
-            // Then, call the API to save the user
+        private async void SaveButton_Click(object sender, RoutedEventArgs e) {
+            
+            string name = NameTextBox.Text;
+            string surname = SurnameTextBox.Text;
+            string telephone = TelephoneTextBox.Text;
+
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(surname) || string.IsNullOrWhiteSpace(telephone)) {
+                MessageBox.Show("Please fill in all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var user = new User {
+                name = name,
+                surname = surname,
+                telephone = telephone
+            };
+
+            var apiService = new ApiService();
+            var isUserAdded = await apiService.AddUserAsync(user);
+
+            if (isUserAdded) {
+                MessageBox.Show("User added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            } else {
+                MessageBox.Show("Failed to add user. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
+
         private void Cancel_Button(object sender, RoutedEventArgs e) {
-            // Implement logic to close the window without saving
-            Close(); // Close the window
+            Close();
         }
     }
 }

@@ -1,0 +1,35 @@
+﻿<!-- EditUserWindow.xaml -->
+<Window x:Class="FrontEnd.EditUserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Edit User" Height="300" Width="400">
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBlock Text="Edit User" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" />
+
+            <!-- Name Input -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Name:" Width="100" />
+                <TextBox x:Name="NameTextBox" Width="200" />
+            </StackPanel>
+
+            <!-- Surname Input -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Surname:" Width="100" />
+                <TextBox x:Name="SurnameTextBox" Width="200" />
+            </StackPanel>
+
+            <!-- Telephone Input -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Telephone:" Width="100" />
+                <TextBox x:Name="TelephoneTextBox" Width="200" />
+            </StackPanel>
+
+            <!-- Save Button -->
+            <Button Content="Save" Width="80" Margin="0,0,10,0" Click="SaveButton_Click" />
+
+            <!-- Done Button -->
+            <Button Content="Done" Width="80" Click="DoneButton_Click" />
+        </StackPanel>
+    </Grid>
+</Window>
