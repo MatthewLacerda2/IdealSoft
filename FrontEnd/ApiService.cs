@@ -6,7 +6,27 @@ using Newtonsoft.Json;
 namespace FrontEnd;
 
 public class ApiService {
-    private const string ApiBaseUrl = "https://localhost:5293/";
+
+    private const string ApiBaseUrl = "https://localhost:5293";
+
+    private readonly HttpClient _httpClient;
+
+    public ApiService() {
+        _httpClient = new HttpClient();
+    }
+
+    public async Task<HttpResponseMessage> GetAsync(string apiUrl) {
+        try {
+            var response = await _httpClient.GetAsync(apiUrl);
+
+            response.EnsureSuccessStatusCode();
+
+            return response;
+        } catch (HttpRequestException ex) {
+            Console.WriteLine($"An error occurred while making the GET request: {ex.Message}");
+            throw;
+        }
+    }
 
     public async Task<bool> AddUserAsync(User user) {
         try {
@@ -29,6 +49,20 @@ public class ApiService {
             }
         } catch (Exception ex) {
             Console.WriteLine($"Error: {ex.Message}");
+            return false;
+        }
+    }
+
+    public async Task<bool> DeleteUser(int userId) {
+        try {
+            string apiUrl = ApiBaseUrl + $"/api/v1/users/{userId}";
+
+            HttpResponseMessage response = await _httpClient.DeleteAsync(apiUrl);
+
+            response.EnsureSuccessStatusCode();
+
+            return true;
+        } catch (HttpRequestException) {
             return false;
         }
     }
