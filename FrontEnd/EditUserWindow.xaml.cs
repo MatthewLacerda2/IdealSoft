@@ -38,7 +38,6 @@ public partial class EditUserWindow : Window {
         }
     }
 
-
     private void DoneButton_Click(object sender, RoutedEventArgs e) {
         Close();
     }

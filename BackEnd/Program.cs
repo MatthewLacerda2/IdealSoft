@@ -3,8 +3,10 @@ using BackEnd.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+string connect = "Server=localhost;Database=mydatabase;User=idealsoft;Password=idealsoft123;";
+
 builder.Services.AddDbContext<BackendDbContext>(options =>
-    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySQL(builder.Configuration.GetConnectionString(connect)));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

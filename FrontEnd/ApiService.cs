@@ -53,6 +53,33 @@ public class ApiService {
         }
     }
 
+    public async Task<bool> UpdateUser(User user) {
+        try {
+            // Convert User object to JSON
+            var jsonUser = JsonConvert.SerializeObject(user);
+
+            // Create a StringContent with JSON data
+            var content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
+
+            // Send the HTTP PATCH request
+            var response = await _httpClient.PatchAsync($"{ApiBaseUrl}/{user.Id}", content);
+
+            // Check if the request was successful (status code 200)
+            if (response.IsSuccessStatusCode) {
+                return true;
+            }
+
+            // Handle other status codes or errors if needed
+            // You can check the response.StatusCode and response.Content properties for more details
+
+            return false;
+        } catch (Exception ex) {
+            // Handle exceptions
+            Console.WriteLine($"Error: {ex.Message}");
+            return false;
+        }
+    }
+
     public async Task<bool> DeleteUser(int userId) {
         try {
             string apiUrl = ApiBaseUrl + $"/api/v1/users/{userId}";

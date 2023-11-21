@@ -17,7 +17,7 @@ public class UserController : ControllerBase {
 
     // GET: api/v1/users/1
     [HttpGet("{id}")]
-    public IActionResult ReadClient(string id) {
+    public IActionResult ReadClient(int id) {
 
         var user = _context.Users.Find(id);
         if(user==null){
