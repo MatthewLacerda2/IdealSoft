@@ -1,0 +1,38 @@
+﻿<!-- UserListWindow.xaml -->
+<Window x:Class="FrontEnd.UserListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="User List" Height="400" Width="600">
+    <Grid Margin="10">
+        <DataGrid x:Name="UserListDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding Users}">
+            <DataGrid.Columns>
+                <!-- Name Column -->
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
+
+                <!-- Surname Column -->
+                <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" Width="*" />
+
+                <!-- Telephone Column -->
+                <DataGridTextColumn Header="Telephone" Binding="{Binding Telephone}" Width="*" />
+
+                <!-- Orange Button Column (Edit) -->
+                <DataGridTemplateColumn Header="Edit" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Edit" Click="EditButton_Click" Background="Orange" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- Red Button Column (Delete) -->
+                <DataGridTemplateColumn Header="Delete" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete" Click="DeleteButton_Click" Background="Red" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

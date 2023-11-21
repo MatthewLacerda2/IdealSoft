@@ -1,21 +1,21 @@
-﻿using System.Text;
+﻿// MainWindow.xaml.cs
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FrontEnd {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e) {
+            var addUserWindow = new AddUserWindow();
+            addUserWindow.ShowDialog();
+        }
+
+        private void ListButton_Click(object sender, RoutedEventArgs e) {
+            var userListWindow = new UserListWindow();
+            userListWindow.ShowDialog();
         }
     }
 }
