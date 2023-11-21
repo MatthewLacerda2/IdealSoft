@@ -58,10 +58,10 @@ namespace BackEndTests {
             Assert.IsType<OkObjectResult>(result);
 
             var okResult = (OkObjectResult)result;
-            var userJson = okResult.Value.ToString();
-            var deserializedUser = JsonConvert.DeserializeObject<User>(userJson);
+            var userJson = okResult.Value!.ToString();
+            var deserializedUser = JsonConvert.DeserializeObject<User>(userJson!);
 
-            Assert.Equal(user.Id, deserializedUser.Id);
+            Assert.Equal(user.Id, deserializedUser!.Id);
             Assert.Equal(user.name, deserializedUser.name);
             Assert.Equal(user.surname, deserializedUser.surname);
             Assert.Equal(user.telephone, deserializedUser.telephone);
@@ -98,7 +98,8 @@ namespace BackEndTests {
 
             // Assert
             var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result.Result);
-            var createdUser = Assert.IsType<User>(createdAtActionResult.Value);
+            var user = JsonConvert.DeserializeObject<User>(createdAtActionResult.Value!.ToString());
+            var createdUser = Assert.IsType<User>(user);
             Assert.Equal(newUser.Id, createdUser.Id);
             Assert.Equal(newUser.name, createdUser.name);
             Assert.Equal(newUser.surname, createdUser.surname);
@@ -121,7 +122,8 @@ namespace BackEndTests {
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var updatedUser = Assert.IsType<User>(okResult.Value);
+            var user = JsonConvert.DeserializeObject<User>(okResult.Value!.ToString());
+            var updatedUser = Assert.IsType<User>(user);
             Assert.Equal("UpdatedName", updatedUser.name);
             Assert.Equal("UpdatedSurname", updatedUser.surname);
             Assert.Equal("123456789", updatedUser.telephone);
