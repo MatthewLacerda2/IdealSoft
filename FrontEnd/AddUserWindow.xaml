@@ -1,0 +1,33 @@
+﻿<!-- AddUserWindow.xaml -->
+<Window x:Class="FrontEnd.AddUserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add User" Height="300" Width="400">
+    <Grid Margin="10">
+        <StackPanel>
+            <!-- Name Field -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Name:" VerticalAlignment="Center" Width="80"/>
+                <TextBox x:Name="NameTextBox" Width="200"/>
+            </StackPanel>
+
+            <!-- Surname Field -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Surname:" VerticalAlignment="Center" Width="80"/>
+                <TextBox x:Name="SurnameTextBox" Width="200"/>
+            </StackPanel>
+
+            <!-- Telephone Field -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Telephone:" VerticalAlignment="Center" Width="80"/>
+                <TextBox x:Name="TelephoneTextBox" Width="200"/>
+            </StackPanel>
+
+            <!-- Save Button -->
+            <Button Content="Save" Click="SaveButton_Click" HorizontalAlignment="Left" Width="80" Margin="0,10,0,0"/>
+
+            <!-- Cancel Button -->
+            <Button Content="Cancel" Click="Cancel_Button" HorizontalAlignment="Left" Width="80" Margin="0,5,0,0"/>
+        </StackPanel>
+    </Grid>
+</Window>
