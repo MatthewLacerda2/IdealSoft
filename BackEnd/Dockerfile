@@ -1,27 +1,26 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
-#For more information, please see https://aka.ms/containercompat
-
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-nanoserver-1809 AS base
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
-ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
-COPY ["BackEnd/BackEnd.csproj", "BackEnd/"]
-RUN dotnet restore "./BackEnd/./BackEnd.csproj"
+# Copy the .csproj file and restore dependencies
+COPY *.csproj .
+RUN dotnet restore
+
+# Copy the rest of the application code
 COPY . .
-WORKDIR "/src/BackEnd"
-RUN dotnet build "./BackEnd.csproj" -c %BUILD_CONFIGURATION% -o /app/build
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./BackEnd.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
+# Build the application
+RUN dotnet publish -c Release -o out
 
-FROM base AS final
+# Build the runtime image
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "BackEnd.dll"]
+COPY --from=build /app/out .
+
+# Set the ASP.NET Core environment variable
+ENV ASPNETCORE_ENVIRONMENT=Production
+
+# Expose the port
+EXPOSE 80
+
+# Run the application
+CMD ["dotnet", "BackEnd.dll"]
